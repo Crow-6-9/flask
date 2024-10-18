@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Admin</title>
+</head>
+<body>
+    <h1>Admin - Manage Products</h1>
+
+    <h2>Add Product</h2>
+    <form action="/admin.html" method="POST">
+        <input type="hidden" name="action" value="add">
+        <input type="text" name="name" placeholder="Product Name"><br>
+        <input type="text" name="price" placeholder="Price"><br>
+        <input type="text" name="quantity" placeholder="Quantity"><br>
+        <button type="submit">Add Product</button>
+    </form>
+
+    <h2>Update or Delete Products</h2>
+    <ul>
+        {% for product in products %}
+        <li>
+            {{ product[1] }} - ${{ product[2] }} (Quantity: {{ product[3] }})
+            <form action="/admin" method="POST">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" value="{{ product[0] }}">
+                <input type="text" name="name" value="{{ product[1] }}">
+                <input type="text" name="price" value="{{ product[2] }}">
+                <input type="text" name="quantity" value="{{ product[3] }}">
+                <button type="submit">Update</button>
+            </form>
+
+            <form action="/admin" method="POST">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="{{ product[0] }}">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Logout</a>
+</body>
+</html>
